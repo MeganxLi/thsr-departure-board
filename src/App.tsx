@@ -6,8 +6,6 @@ import { getAuthorization } from "./utils/API";
 import { TokenType } from "./utils/Type";
 
 function App() {
-   const [vToken, setToken] = useState<TokenType>();
-
    const getToken = () => {
       getAuthorization()
          .then((res) => {
