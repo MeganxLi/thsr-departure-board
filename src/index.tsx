@@ -4,17 +4,13 @@ import { Provider } from "react-redux";
 import { store } from "./app/store";
 import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
 import App from "./App";
-import { apiSlice } from "./utils/API";
+import { api } from "./services/API";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
 
 root.render(
-   <React.StrictMode>
-      <ApiProvider api={apiSlice}>
-         <Provider store={store}>
-            <App />
-         </Provider>
-      </ApiProvider>
-   </React.StrictMode>
+    <ApiProvider api={api}>
+        <App />
+    </ApiProvider>
 );
