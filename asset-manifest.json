@@ -1,12 +1,13 @@
 {
   "files": {
-    "main.css": "/thsr-departure-board/static/css/main.31d6cfe0.css",
-    "main.js": "/thsr-departure-board/static/js/main.fd37aa69.js",
+    "main.css": "/thsr-departure-board/static/css/main.22f73019.css",
+    "main.js": "/thsr-departure-board/static/js/main.35f933a5.js",
     "index.html": "/thsr-departure-board/index.html",
-    "main.fd37aa69.js.map": "/thsr-departure-board/static/js/main.fd37aa69.js.map"
+    "main.22f73019.css.map": "/thsr-departure-board/static/css/main.22f73019.css.map",
+    "main.35f933a5.js.map": "/thsr-departure-board/static/js/main.35f933a5.js.map"
   },
   "entrypoints": [
-    "static/css/main.31d6cfe0.css",
-    "static/js/main.fd37aa69.js"
+    "static/css/main.22f73019.css",
+    "static/js/main.35f933a5.js"
   ]
 }
