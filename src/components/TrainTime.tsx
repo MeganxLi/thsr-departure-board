@@ -1,6 +1,7 @@
 import React from "react";
 import { TrainInfoTitle } from "../constants/Messages";
 
+const text = ["南港", "台中"];
 const TrainTime = () => {
    return (
       <div id="TrainTime">
@@ -14,7 +15,11 @@ const TrainTime = () => {
                );
             })}
          </div>
-         <div className="TrainStation"></div>
+         <ul className="TrainStation">
+            {text.map((TrainName: string, idx) => {
+               return <li key={idx}> {TrainName}</li>;
+            })}
+         </ul>
       </div>
    );
 };
