@@ -1,16 +1,12 @@
 {
   "files": {
-    "main.css": "/thsr-departure-board/static/css/main.ae71d505.css",
-    "main.js": "/thsr-departure-board/static/js/main.c3280097.js",
-    "static/js/787.1ffad957.chunk.js": "/thsr-departure-board/static/js/787.1ffad957.chunk.js",
-    "static/media/logo.svg": "/thsr-departure-board/static/media/logo.b2e5a01e505f739f1484b881277d5186.svg",
+    "main.css": "/thsr-departure-board/static/css/main.31d6cfe0.css",
+    "main.js": "/thsr-departure-board/static/js/main.1aa12f05.js",
     "index.html": "/thsr-departure-board/index.html",
-    "main.ae71d505.css.map": "/thsr-departure-board/static/css/main.ae71d505.css.map",
-    "main.c3280097.js.map": "/thsr-departure-board/static/js/main.c3280097.js.map",
-    "787.1ffad957.chunk.js.map": "/thsr-departure-board/static/js/787.1ffad957.chunk.js.map"
+    "main.1aa12f05.js.map": "/thsr-departure-board/static/js/main.1aa12f05.js.map"
   },
   "entrypoints": [
-    "static/css/main.ae71d505.css",
-    "static/js/main.c3280097.js"
+    "static/css/main.31d6cfe0.css",
+    "static/js/main.1aa12f05.js"
   ]
 }
