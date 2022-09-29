@@ -3,7 +3,7 @@ name: CI
 on:
     push:
         branches:
-            - query
+            - query # 指定分支
 
 jobs:
     build:
@@ -18,6 +18,7 @@ jobs:
                   npm install
                   npm run-script build
               env:
+                  # 獲得 GitHub env 變數
                   REACT_APP_GRANT_TYPE: ${{ secrets.REACT_APP_GRANT_TYPE }}
                   REACT_APP_CLIENT_ID: ${{ secrets.REACT_APP_CLIENT_ID }}
                   REACT_APP_CLIENT_SECRET: ${{ secrets.REACT_APP_CLIENT_SECRET }}
@@ -25,6 +26,6 @@ jobs:
             - name: Deploy
               uses: JamesIves/github-pages-deploy-action@releases/v3
               with:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub Token 變數
                   BRANCH: gh-pages
                   FOLDER: build
