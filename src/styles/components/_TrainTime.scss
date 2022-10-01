@@ -3,13 +3,13 @@
    border: 1.5px solid $text-color;
    border-radius: 0.5rem;
 
-   .TrainInfo {
+   .train-info {
       display: grid;
       font-size: 18px;
       font-weight: bold;
       grid-template-columns: repeat(2, 1fr);
       gap: 0.5rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
 
       label {
          display: inline-block;

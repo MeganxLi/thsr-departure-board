@@ -2,13 +2,14 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { TrainInfoTitle } from "../constants/Messages";
 import { RootState } from "../store";
+import { StyledStationRote, StyleStationItem, StyleStationRoteSpan, StyleUl } from "../styled/TrainTime";
 
 const TrainTime = () => {
    const StationList = useSelector((state: RootState) => state.base.getStationList);
 
    return (
       <div id="TrainTime">
-         <div className="TrainInfo">
+         <div className="train-info">
             {Object.keys(TrainInfoTitle).map((title: string, idx: number) => {
                return (
                   <div key={idx}>
@@ -18,11 +19,25 @@ const TrainTime = () => {
                );
             })}
          </div>
-         <ul className="TrainStation">
+         <StyleUl className="train-station" ListLength={StationList.length}>
             {StationList.map((TrainName: StationType, idx) => {
-               return <li key={idx}> {TrainName.StationName.Zh_tw}</li>;
+               return (
+                  <StyleStationItem key={idx}>
+                     <div className="station-name">{TrainName.StationName.Zh_tw}</div>
+                     <StyledStationRote className="station-route">
+                        <StyleStationRoteSpan
+                           opacity={idx === 0 ? 0 : 1}
+                           className="station-route-left"
+                        ></StyleStationRoteSpan>
+                        <StyleStationRoteSpan
+                           opacity={idx === StationList.length - 1 ? 0 : 1}
+                           className="station-route-right"
+                        ></StyleStationRoteSpan>
+                     </StyledStationRote>
+                  </StyleStationItem>
+               );
             })}
-         </ul>
+         </StyleUl>
       </div>
    );
 };
