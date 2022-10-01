@@ -1,8 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { TrainInfoTitle } from "../constants/Messages";
+import { RootState } from "../store";
 
-const text = ["南港", "台中"];
 const TrainTime = () => {
+   const StationList = useSelector((state: RootState) => state.base.getStationList);
+
    return (
       <div id="TrainTime">
          <div className="TrainInfo">
@@ -16,8 +19,8 @@ const TrainTime = () => {
             })}
          </div>
          <ul className="TrainStation">
-            {text.map((TrainName: string, idx) => {
-               return <li key={idx}> {TrainName}</li>;
+            {StationList.map((TrainName: StationType, idx) => {
+               return <li key={idx}> {TrainName.StationName.Zh_tw}</li>;
             })}
          </ul>
       </div>
