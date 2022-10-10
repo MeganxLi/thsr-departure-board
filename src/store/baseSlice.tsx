@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { api } from "../services/API";
-import { getToday } from "../utils/dataprocessor";
+import { getNowTime, getToday } from "../utils/dataprocessor";
 
 const initialState = {
   getStationList: [] as StationType[],
@@ -8,17 +8,16 @@ const initialState = {
     StationID: "0990",
     TrainDate: getToday,
   },
-  getDesignatedStation: [] as DesignatedStationType[],
+  getSouthDesignatedStation: [] as DesignatedStationType[],
+  getNorthDesignatedStation: [] as DesignatedStationType[],
 };
 
 export const baseSlice = createSlice({
   name: "base",
   initialState,
   reducers: {
-    stationList: (state, action) => { },
     selectStation: (state, action) => {
       state.selectStation = action.payload;
-      console.log("selectStation", state, action);
     },
   },
   extraReducers: (builder) => {
@@ -26,7 +25,12 @@ export const baseSlice = createSlice({
       state.getStationList = payload;
     });
     builder.addMatcher(api.endpoints.getDesignatedStation.matchFulfilled, (state, { payload }) => {
-      state.getDesignatedStation = payload;
+      const DepartureTimeStation = (direction: number) => {
+        return payload.filter((StationItem: DesignatedStationType) => StationItem.DepartureTime > getNowTime && StationItem.Direction === direction
+        )
+      };
+      state.getSouthDesignatedStation = DepartureTimeStation(0); // 南下
+      state.getNorthDesignatedStation = DepartureTimeStation(1); // 北上
     });
   },
 });
