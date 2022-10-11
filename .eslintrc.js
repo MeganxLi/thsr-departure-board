@@ -15,5 +15,6 @@ module.exports = {
     indent: ["off", 2],
     quotes: "off",
     "comma-dangle": "off",
+    "space-before-function-paren": ["error", "never"],
   },
 };
