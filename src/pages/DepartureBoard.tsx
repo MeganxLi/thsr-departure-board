@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import Marquee from "../components/Marquee";
-import TrainTime from "../components/TrainTime";
 import AnalogClock from "../components/AnalogClock";
 import { useGetDesignatedStationQuery } from "../services/API";
 import { RootState } from "../store";
 import { selectStation } from "../store/baseSlice";
 import { getToday } from "../utils/dataprocessor";
+import NorthDirection from "./directionStation/NorthDirection";
+import SouthDirection from "./directionStation/SouthDirection";
 
 const DepartureBoard = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const DepartureBoard = () => {
   };
 
   return (
-    <div>
+    <>
       <select value={selectStationVal.StationID} onChange={getSelectTrain}>
         {stationList.map((TrainName: StationType, idx) => {
           return (
@@ -28,10 +28,12 @@ const DepartureBoard = () => {
           );
         })}
       </select>
-      <TrainTime />
-      <Marquee />
-      <AnalogClock />
-    </div>
+      <div className="departure-board">
+        <SouthDirection />
+        <AnalogClock />
+        <NorthDirection />
+      </div>
+    </>
   );
 };
 
