@@ -1,21 +1,36 @@
 #TrainTime {
-   padding: 0.5rem;
-   border: 1.5px solid $text-color;
-   border-radius: 0.5rem;
+  padding: 0.75rem;
+  border: 1.5px solid $text-color;
+  border-radius: 0.5rem;
+  position: relative;
 
-   .train-info {
-      display: grid;
-      font-size: 18px;
-      font-weight: bold;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.5rem;
-      margin-bottom: 1rem;
+  &::before {
+    $size: 0.75rem;
 
-      label {
-         display: inline-block;
-         width: 40%;
-         max-width: 80px;
-         margin-right: 4px;
-      }
-   }
+    content: "";
+    border: 1px solid $text-color;
+    border-radius: 50%;
+    background-color: $background-color;
+    width: $size;
+    height: $size;
+    position: absolute;
+    top: -3px;
+    left: -3px;
+  }
+
+  .train-info {
+    display: grid;
+    font-size: 18px;
+    font-weight: bold;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+
+    label {
+      display: inline-block;
+      width: 40%;
+      max-width: 80px;
+      margin-right: 4px;
+    }
+  }
 }
