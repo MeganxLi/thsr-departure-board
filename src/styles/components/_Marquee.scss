@@ -1,0 +1,14 @@
+#Marquee {
+   width: 100%;
+   overflow: hidden;
+   white-space: nowrap;
+   padding: 1rem 0;
+
+   span {
+      font-size: 20px;
+      font-weight: bold;
+      position: relative;
+      left: 200%;
+      animation: marquee 30s linear infinite;
+   }
+}

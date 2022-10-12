@@ -1,0 +1,15 @@
+// utils
+@import "utils/Variables";
+@import "utils/Animation";
+
+// base
+@import "base/Reset";
+@import "base/Base";
+@import "base/Select";
+
+// components
+@import "components/TrainTime";
+@import "components/Marquee";
+
+// pages
+@import "pages/DepartureBoard";

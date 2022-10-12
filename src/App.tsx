@@ -1,27 +1,18 @@
 import { useEffect, useState } from "react";
 import { Counter } from "./features/counter/Counter";
-import DepartureBoard from "./pages/DepartureBoard";
 import "./styles/App.scss";
-import { getAuthorization } from "./utils/API";
-import { TokenType } from "./utils/Type";
+import { useGetAuthorizationMutation, useGetStationQuery } from "./services/API";
+import DepartureBoard from "./pages";
 
 function App() {
-   const getToken = () => {
-      getAuthorization()
-         .then((res) => {
-            console.log("getToken", res);
-         })
-         .catch();
-   };
+  const [getAuthorization, { isError, error }] = useGetAuthorizationMutation();
+  const { data } = useGetStationQuery({});
 
-   useEffect(() => {
-      getToken();
-   }, []);
-   return (
-      <div className="App">
-         <DepartureBoard />
-      </div>
-   );
+  return (
+    <div className="App">
+      <DepartureBoard />
+    </div>
+  );
 }
 
 export default App;
