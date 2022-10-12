@@ -1,6 +1,12 @@
 import styled from "styled-components";
 import { colors } from "./Variables";
 
+export const StyleTrainInfoText = styled.span<{ $idx: number, $direction: boolean }>`
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: ${(props) => props.$idx === 1 && (props.$direction ? colors["blurColor"] : colors["greenColor"])}
+`
+
 export const StyleUl = styled.ul<{ ListLength: number }>`
    display: grid;
    grid-template-columns: repeat(${(props) => props.ListLength}, 1fr);
@@ -35,3 +41,4 @@ export const StyleStationRoteSpan = styled.span<{ opacity: number }>`
    margin-top: 0.5rem;
    opacity: ${({ opacity }) => opacity};
 `;
+
