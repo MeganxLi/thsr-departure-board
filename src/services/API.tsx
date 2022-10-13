@@ -39,7 +39,7 @@ export const api = createApi({
         return {
           url: `https://tdx.transportdata.tw/api/basic/v2/Rail/THSR/DailyTimetable/Station/${StationID}/${TrainDate}`,
           method: "GET",
-          params: { $select: "TrainDate,TrainNo,ArrivalTime,DepartureTime,EndingStationName", $format: "JSON" },
+          params: { $select: "TrainDate,TrainNo,DepartureTime,EndingStationName", $format: "JSON" },
         };
       },
     }),

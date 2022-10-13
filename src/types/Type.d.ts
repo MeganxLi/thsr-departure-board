@@ -47,24 +47,24 @@ type selectStationType = {
 
 type DesignatedStationType = {
   TrainDate: string;
-  StationID: string;
-  StationName: {
+  StationID?: string;
+  StationName?: {
     Zh_tw: string;
     En: string;
   };
   TrainNo: string;
   Direction: number; // 行駛方向 0：南下, 1: 北上
-  StartingStationID: string;
-  StartingStationName: {
+  StartingStationID?: string;
+  StartingStationName?: {
     Zh_tw: string;
     En: string;
   };
-  EndingStationID: string;
+  EndingStationID?: string;
   EndingStationName: {
     Zh_tw: string;
     En: string;
   };
-  ArrivalTime: string;
+  ArrivalTime?: string;
   DepartureTime: string;
   UpdateTime: string;
   VersionID: number;
