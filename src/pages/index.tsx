@@ -29,9 +29,9 @@ const DepartureBoard = () => {
         })}
       </select>
       <div className="departure-board">
-        <DirectionStation direction={Direction.South} />
+        <DirectionStation Direction={Direction.South} />
         <AnalogClock />
-        <DirectionStation direction={Direction.North} />
+        <DirectionStation Direction={Direction.North} />
       </div>
     </>
   );

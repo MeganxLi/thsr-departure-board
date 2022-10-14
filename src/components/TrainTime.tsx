@@ -7,6 +7,20 @@ import { StyledStationRote, StyleStationItem, StyleStationRoteSpan, StyleTrainIn
 const TrainTime = (props: any) => {
   const StationList = useSelector((state: RootState) => state.base.getStationList);
 
+  const TrainInfoText = (idx: number, title: string): string => {
+
+    switch (idx) {
+      case 1:
+        return props.DirectionStationVal.EndingStationName.Zh_tw;
+
+      case 3:
+        return "9-12車";
+
+      default:
+        return props.DirectionStationVal[title];
+    }
+  }
+
   return (
     <div id="TrainTime">
       <div className="train-info">
@@ -14,7 +28,7 @@ const TrainTime = (props: any) => {
           return (
             <div key={idx}>
               <label>{TrainInfoTitle[title]}</label>
-              <StyleTrainInfoText $idx={idx} $direction={props.direction}>123</StyleTrainInfoText>
+              {props.DirectionStationVal !== undefined && <StyleTrainInfoText $idx={idx} $direction={props.Direction}>{TrainInfoText(idx, title)}</StyleTrainInfoText>}
             </div>
           );
         })}
