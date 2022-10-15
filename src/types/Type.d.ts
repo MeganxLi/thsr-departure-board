@@ -2,6 +2,10 @@ interface TitleType {
   [index: string]: string;
 }
 
+interface MapType {
+  [key: string]: any;
+}
+
 interface ParameterType {
   grant_type: string;
   client_id: string;
@@ -66,6 +70,39 @@ type DesignatedStationType = {
   };
   ArrivalTime?: string;
   DepartureTime: string;
+  UpdateTime: string;
+  VersionID: number;
+};
+
+type StopTimesType = {
+  StopSequence: number;
+  StationID: string;
+  StationName: {
+    Zh_tw: string;
+    En: string;
+  };
+  ArrivalTime: string;
+  DepartureTime: string;
+};
+
+type TrainNoInfoType = {
+  TrainDate: string;
+  DailyTrainInfo: {
+    TrainNo: string;
+    Direction: number;
+    StartingStationID: string;
+    StartingStationName: {
+      Zh_tw: string;
+      En: string;
+    };
+    EndingStationID: string;
+    EndingStationName: {
+      Zh_tw: string;
+      En: string;
+    };
+    Note: {};
+  };
+  StopTimes: StopTimesType[];
   UpdateTime: string;
   VersionID: number;
 };
