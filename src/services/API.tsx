@@ -43,7 +43,18 @@ export const api = createApi({
         };
       },
     }),
+    getTrainNoInfo: builder.query<TrainNoInfoType[], { TrainNo: string }>({
+      // 取得指定列車號資訊
+      query: ({ TrainNo }) => {
+        return {
+          url: `https://tdx.transportdata.tw/api/basic/v2/Rail/THSR/DailyTimetable/Today/TrainNo/${TrainNo}`,
+          method: "GET",
+          params: { $format: "JSON" },
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetAuthorizationMutation, useGetStationQuery, useGetDesignatedStationQuery } = api;
+export const { useGetAuthorizationMutation, useGetStationQuery, useGetDesignatedStationQuery, useGetTrainNoInfoQuery } =
+  api;
