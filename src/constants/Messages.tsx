@@ -5,4 +5,4 @@ export const TrainInfoTitle: TitleType = {
   NonReserved: "自由座",
 };
 
-export enum Direction { North, South }
+export enum DirectionMsg { North, South }

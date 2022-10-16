@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Direction } from "../constants/Messages";
 import { colors } from "./Variables";
 
 export const StyleDirectionPlatform = styled.p<{ $direction: boolean }>`

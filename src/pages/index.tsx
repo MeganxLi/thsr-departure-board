@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AnalogClock from "../components/AnalogClock";
-import { Direction } from "../constants/Messages";
 import { useGetDesignatedStationQuery } from "../services/API";
 import { RootState } from "../store";
 import { selectStation, selectStationName } from "../store/baseSlice";
@@ -42,9 +41,10 @@ const DepartureBoard = () => {
         })}
       </select>
       <div className="departure-board">
-        <DirectionStation Direction={Direction.South} />
+        {/* NorthDirection 行車方向, true: 北, false: 南 */}
+        <DirectionStation NorthDirection={false} />
         <AnalogClock />
-        <DirectionStation Direction={Direction.North} />
+        <DirectionStation NorthDirection={true} />
       </div>
     </>
   );
