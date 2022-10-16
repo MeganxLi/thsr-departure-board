@@ -1,8 +1,8 @@
 export const TrainInfoTitle: TitleType = {
-  1: "本車列車",
-  2: "列車開往",
-  3: "開車時間",
-  4: "自由座",
+  TrainNo: "本車列車",
+  EndingStationName: "列車開往",
+  DepartureTime: "開車時間",
+  NonReserved: "自由座",
 };
 
-export enum Direction { North, South }
+export enum DirectionMsg { North, South }

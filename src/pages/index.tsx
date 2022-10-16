@@ -1,9 +1,9 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AnalogClock from "../components/AnalogClock";
-import { Direction } from "../constants/Messages";
 import { useGetDesignatedStationQuery } from "../services/API";
 import { RootState } from "../store";
-import { selectStation } from "../store/baseSlice";
+import { selectStation, selectStationName } from "../store/baseSlice";
 import { getToday } from "../utils/dataprocessor";
 import DirectionStation from "./DirectionStation";
 
@@ -17,6 +17,18 @@ const DepartureBoard = () => {
     dispatch(selectStation({ StationID: e.target.value, TrainDate: getToday }));
   };
 
+  useEffect(() => {
+    if (stationList.length === 0) return;
+
+    const stationListIndex = stationList
+      .map((item: StationType) => {
+        return item.StationID;
+      })
+      .indexOf(selectStationVal.StationID);
+
+    dispatch(selectStationName(stationList[stationListIndex].StationName.Zh_tw));
+  }, [selectStationVal]);
+
   return (
     <>
       <select value={selectStationVal.StationID} onChange={getSelectTrain}>
@@ -29,9 +41,10 @@ const DepartureBoard = () => {
         })}
       </select>
       <div className="departure-board">
-        <DirectionStation direction={Direction.South} />
+        {/* NorthDirection 行車方向, true: 北, false: 南 */}
+        <DirectionStation NorthDirection={false} />
         <AnalogClock />
-        <DirectionStation direction={Direction.North} />
+        <DirectionStation NorthDirection={true} />
       </div>
     </>
   );

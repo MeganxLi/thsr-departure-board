@@ -39,11 +39,22 @@ export const api = createApi({
         return {
           url: `https://tdx.transportdata.tw/api/basic/v2/Rail/THSR/DailyTimetable/Station/${StationID}/${TrainDate}`,
           method: "GET",
-          params: { $select: "TrainDate,TrainNo,ArrivalTime,DepartureTime,EndingStationName", $format: "JSON" },
+          params: { $select: "TrainDate,TrainNo,DepartureTime,EndingStationName", $format: "JSON" },
+        };
+      },
+    }),
+    getTrainNoInfo: builder.query<TrainNoInfoType[], { TrainNo: string }>({
+      // 取得指定列車號資訊
+      query: ({ TrainNo }) => {
+        return {
+          url: `https://tdx.transportdata.tw/api/basic/v2/Rail/THSR/DailyTimetable/Today/TrainNo/${TrainNo}`,
+          method: "GET",
+          params: { $format: "JSON" },
         };
       },
     }),
   }),
 });
 
-export const { useGetAuthorizationMutation, useGetStationQuery, useGetDesignatedStationQuery } = api;
+export const { useGetAuthorizationMutation, useGetStationQuery, useGetDesignatedStationQuery, useGetTrainNoInfoQuery } =
+  api;
