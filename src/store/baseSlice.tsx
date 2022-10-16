@@ -8,6 +8,7 @@ const initialState = {
     StationID: "0990",
     TrainDate: getToday,
   },
+  selectStationName: "南港",
   getSouthDesignatedStation: [] as DesignatedStationType[],
   getNorthDesignatedStation: [] as DesignatedStationType[],
 };
@@ -19,6 +20,9 @@ export const baseSlice = createSlice({
     selectStation: (state, action) => {
       state.selectStation = action.payload;
     },
+    selectStationName: (state, action) => {
+      state.selectStationName = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addMatcher(api.endpoints.getStation.matchFulfilled, (state, { payload }) => {
@@ -26,15 +30,19 @@ export const baseSlice = createSlice({
     });
     builder.addMatcher(api.endpoints.getDesignatedStation.matchFulfilled, (state, { payload }) => {
       const DepartureTimeStation = (direction: number) => {
-        return payload.filter((StationItem: DesignatedStationType) => StationItem.DepartureTime > getNowTime && StationItem.Direction === direction
-        )
+        return payload.filter(
+          (StationItem: DesignatedStationType) =>
+            StationItem.DepartureTime > getNowTime && StationItem.Direction === direction
+        );
       };
+
       state.getSouthDesignatedStation = DepartureTimeStation(0); // 南下
       state.getNorthDesignatedStation = DepartureTimeStation(1); // 北上
     });
+
   },
 });
 
-export const { selectStation } = baseSlice.actions;
+export const { selectStation, selectStationName } = baseSlice.actions;
 
 export default baseSlice.reducer;

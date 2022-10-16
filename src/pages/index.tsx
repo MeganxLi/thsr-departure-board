@@ -1,9 +1,10 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AnalogClock from "../components/AnalogClock";
 import { Direction } from "../constants/Messages";
 import { useGetDesignatedStationQuery } from "../services/API";
 import { RootState } from "../store";
-import { selectStation } from "../store/baseSlice";
+import { selectStation, selectStationName } from "../store/baseSlice";
 import { getToday } from "../utils/dataprocessor";
 import DirectionStation from "./DirectionStation";
 
@@ -16,6 +17,18 @@ const DepartureBoard = () => {
   const getSelectTrain = (e: any) => {
     dispatch(selectStation({ StationID: e.target.value, TrainDate: getToday }));
   };
+
+  useEffect(() => {
+    if (stationList.length === 0) return;
+
+    const stationListIndex = stationList
+      .map((item: StationType) => {
+        return item.StationID;
+      })
+      .indexOf(selectStationVal.StationID);
+
+    dispatch(selectStationName(stationList[stationListIndex].StationName.Zh_tw));
+  }, [selectStationVal]);
 
   return (
     <>
