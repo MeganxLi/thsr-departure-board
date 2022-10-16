@@ -1,26 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { TrainInfoTitle } from "../constants/Messages";
+import { useGetTrainNoInfoQuery } from "../services/API";
 import { RootState } from "../store";
-import { StyledStationRote, StyleStationItem, StyleStationRoteSpan, StyleTrainInfoText, StyleUl } from "../styled/TrainTime";
+import {
+  StyledStationRote,
+  StyleStationItem,
+  StyleStationRoteSpan,
+  StyleTrainInfoText,
+  StyleUl,
+} from "../styled/TrainTime";
 
-const TrainTime = (props: any) => {
-  const StationList = useSelector((state: RootState) => state.base.getStationList);
+interface props {
+  Direction: boolean;
+  DirectionStationVal: DesignatedStationType;
+}
 
-  const TrainInfoText = (idx: number, title: string): string => {
+const TrainTime = ({ Direction, DirectionStationVal }: props) => {
+  const selectStationNameVal = useSelector((state: RootState) => state.base.selectStationName);
+  const ApiStationList = useSelector((state: RootState) => state.base.getStationList);
+  const { data } = useGetTrainNoInfoQuery({
+    TrainNo: DirectionStationVal !== undefined ? DirectionStationVal.TrainNo : "",
+  });
+  const [StopStation, setStopStation] = useState<string[]>([]);
+  const getStationsList = Direction ? [...ApiStationList].reverse() : ApiStationList; //北上車站清單要倒序
 
+  const TrainInfoText = (idx: number, title: string): string | number => {
     switch (idx) {
+      case 0:
+        return parseInt(DirectionStationVal.TrainNo);
       case 1:
-        return props.DirectionStationVal.EndingStationName.Zh_tw;
+        return DirectionStationVal.EndingStationName.Zh_tw;
 
       case 3:
         return "9-12車";
 
       default:
-        return props.DirectionStationVal[title];
+        return (DirectionStationVal as MapType)[title];
     }
-  }
+  };
 
+  useEffect(() => {
+    if (data) {
+      let newDataStopStation: string[] = [];
+      data[0].StopTimes.map((item: StopTimesType) => {
+        return (newDataStopStation = [...newDataStopStation, item.StationName.Zh_tw]);
+      });
+
+      setStopStation(newDataStopStation);
+    }
+  }, [data]);
   return (
     <div id="TrainTime">
       <div className="train-info">
@@ -28,29 +57,42 @@ const TrainTime = (props: any) => {
           return (
             <div key={idx}>
               <label>{TrainInfoTitle[title]}</label>
-              {props.DirectionStationVal !== undefined && <StyleTrainInfoText $idx={idx} $direction={props.Direction}>{TrainInfoText(idx, title)}</StyleTrainInfoText>}
+              {DirectionStationVal && (
+                <StyleTrainInfoText $idx={idx} $direction={Direction}>
+                  {TrainInfoText(idx, title)}
+                </StyleTrainInfoText>
+              )}
             </div>
           );
         })}
       </div>
-      <StyleUl className="train-station" ListLength={StationList.length}>
-        {StationList.map((TrainName: StationType, idx) => {
-          return (
-            <StyleStationItem key={idx}>
-              <div className="station-name">{TrainName.StationName.Zh_tw}</div>
-              <StyledStationRote className="station-route">
-                <StyleStationRoteSpan
-                  opacity={idx === 0 ? 0 : 1}
-                  className="station-route-left"
-                ></StyleStationRoteSpan>
-                <StyleStationRoteSpan
-                  opacity={idx === StationList.length - 1 ? 0 : 1}
-                  className="station-route-right"
-                ></StyleStationRoteSpan>
-              </StyledStationRote>
-            </StyleStationItem>
-          );
-        })}
+      <StyleUl className="train-station" ListLength={getStationsList.length}>
+        {StopStation.length !== 0 &&
+          getStationsList.map((TrainName: StationType, idx) => {
+            const HaveStopStation = StopStation.indexOf(TrainName.StationName.Zh_tw) === -1;
+            const SelectStation = selectStationNameVal === TrainName.StationName.Zh_tw;
+            return (
+              <StyleStationItem
+                key={idx}
+                $direction={Direction}
+                $hiddenStation={HaveStopStation}
+                $sameStation={SelectStation}
+                className={SelectStation ? "select-station" : undefined}
+              >
+                <div className="station-name">{TrainName.StationName.Zh_tw}</div>
+                <StyledStationRote className="station-route">
+                  <StyleStationRoteSpan
+                    opacity={idx === 0 ? 0 : 1}
+                    className="station-route-left"
+                  ></StyleStationRoteSpan>
+                  <StyleStationRoteSpan
+                    opacity={idx === getStationsList.length - 1 ? 0 : 1}
+                    className="station-route-right"
+                  ></StyleStationRoteSpan>
+                </StyledStationRote>
+              </StyleStationItem>
+            );
+          })}
       </StyleUl>
     </div>
   );
