@@ -4,7 +4,7 @@ import AnalogClock from "../components/AnalogClock";
 import { useGetDesignatedStationQuery } from "../services/API";
 import { RootState } from "../store";
 import { selectStation, selectStationName } from "../store/baseSlice";
-import { getToday } from "../utils/dataprocessor";
+import { getNowTime, getToday } from "../utils/dataprocessor";
 import DirectionStation from "./DirectionStation";
 
 const DepartureBoard = () => {
@@ -43,7 +43,15 @@ const DepartureBoard = () => {
       <div className="departure-board">
         {/* NorthDirection 行車方向, true: 北, false: 南 */}
         <DirectionStation NorthDirection={false} />
-        <AnalogClock />
+
+        <div className="now-time">
+          <AnalogClock />
+          <div className="digital-clock">
+            <p>現在時刻</p>
+            <p>{getNowTime}</p>
+          </div>
+        </div>
+
         <DirectionStation NorthDirection={true} />
       </div>
     </>
