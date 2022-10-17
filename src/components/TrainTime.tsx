@@ -10,6 +10,7 @@ import {
   StyleTrainInfoText,
   StyleUl,
 } from "../styled/TrainTime";
+import Stepper from "./Stepper";
 
 interface props {
   Direction: boolean;
@@ -17,13 +18,6 @@ interface props {
 }
 
 const TrainTime = ({ Direction, DirectionStationVal }: props) => {
-  const selectStationNameVal = useSelector((state: RootState) => state.base.selectStationName);
-  const ApiStationList = useSelector((state: RootState) => state.base.getStationList);
-  const { data } = useGetTrainNoInfoQuery({
-    TrainNo: DirectionStationVal !== undefined ? DirectionStationVal.TrainNo : "",
-  });
-  const [StopStation, setStopStation] = useState<string[]>([]);
-  const getStationsList = Direction ? [...ApiStationList].reverse() : ApiStationList; //北上車站清單要倒序
 
   const TrainInfoText = (idx: number, title: string): string | number => {
     switch (idx) {
@@ -40,16 +34,6 @@ const TrainTime = ({ Direction, DirectionStationVal }: props) => {
     }
   };
 
-  useEffect(() => {
-    if (data) {
-      let newDataStopStation: string[] = [];
-      data[0].StopTimes.map((item: StopTimesType) => {
-        return (newDataStopStation = [...newDataStopStation, item.StationName.Zh_tw]);
-      });
-
-      setStopStation(newDataStopStation);
-    }
-  }, [data]);
   return (
     <div id="TrainTime">
       <div className="train-info">
@@ -67,34 +51,8 @@ const TrainTime = ({ Direction, DirectionStationVal }: props) => {
         })}
       </div>
       {DirectionStationVal &&
-        <StyleUl className="train-station" ListLength={getStationsList.length}>
-          {StopStation.length !== 0 &&
-            getStationsList.map((TrainName: StationType, idx) => {
-              const HaveStopStation = StopStation.indexOf(TrainName.StationName.Zh_tw) === -1;
-              const SelectStation = selectStationNameVal === TrainName.StationName.Zh_tw;
-              return (
-                <StyleStationItem
-                  key={idx}
-                  $direction={Direction}
-                  $hiddenStation={HaveStopStation}
-                  $sameStation={SelectStation}
-                  className={SelectStation ? "select-station" : undefined}
-                >
-                  <div className="station-name">{TrainName.StationName.Zh_tw}</div>
-                  <StyledStationRote className="station-route">
-                    <StyleStationRoteSpan
-                      opacity={idx === 0 ? 0 : 1}
-                      className="station-route-left"
-                    ></StyleStationRoteSpan>
-                    <StyleStationRoteSpan
-                      opacity={idx === getStationsList.length - 1 ? 0 : 1}
-                      className="station-route-right"
-                    ></StyleStationRoteSpan>
-                  </StyledStationRote>
-                </StyleStationItem>
-              );
-            })}
-        </StyleUl>}
+        <Stepper Direction={Direction} DirectionStationVal={DirectionStationVal} />
+      }
     </div>
   );
 };
