@@ -29,12 +29,16 @@ export const baseSlice = createSlice({
       state.getStationList = payload;
     });
     builder.addMatcher(api.endpoints.getDesignatedStation.matchFulfilled, (state, { payload }) => {
+      console.log("payload", payload);
+
       const DepartureTimeStation = (direction: number) => {
         return payload.filter(
           (StationItem: DesignatedStationType) =>
             StationItem.DepartureTime > getNowTime && StationItem.Direction === direction
         );
       };
+      console.log(DepartureTimeStation(0)[0], DepartureTimeStation(1)[0]);
+
 
       state.getSouthDesignatedStation = DepartureTimeStation(0); // 南下
       state.getNorthDesignatedStation = DepartureTimeStation(1); // 北上

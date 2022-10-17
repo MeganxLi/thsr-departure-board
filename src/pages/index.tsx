@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AnalogClock from "../components/AnalogClock";
-import { useGetDesignatedStationQuery } from "../services/API";
+import { api, useGetDesignatedStationQuery } from "../services/API";
 import { RootState } from "../store";
 import { selectStation, selectStationName } from "../store/baseSlice";
 import { getNowTime, getToday } from "../utils/dataprocessor";
@@ -12,10 +12,22 @@ const DepartureBoard = () => {
   const stationList = useSelector((state: RootState) => state.base.getStationList);
   const selectStationVal = useSelector((state: RootState) => state.base.selectStation);
   const { data } = useGetDesignatedStationQuery(selectStationVal);
+  const [getAuthorization] = api.useGetAuthorizationMutation();
+  const onToggle = useCallback(() => {
+    getAuthorization({});
+  }, [getAuthorization])
 
   const getSelectTrain = (e: any) => {
     dispatch(selectStation({ StationID: e.target.value, TrainDate: getToday }));
   };
+
+  useEffect(() => {
+    onToggle();
+  }, []);
+
+  useEffect(() => {
+    console.log("selectStationVal", selectStationVal)
+  }, [selectStationVal]);
 
   useEffect(() => {
     if (stationList.length === 0) return;
