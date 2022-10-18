@@ -12,7 +12,7 @@ export const api = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Token", "Query"],
+  tagTypes: ["Token", "Query", "Station"],
   endpoints: (builder) => ({
     // 獲取token
     getAuthorization: builder.mutation<TokenType, any>({
@@ -48,7 +48,7 @@ export const api = createApi({
           params: { $select: "TrainDate,TrainNo,DepartureTime,EndingStationName", $format: "JSON" },
         };
       },
-      providesTags: ["Query"],
+      providesTags: ["Station"],
     }),
     getTrainNoInfo: builder.query<TrainNoInfoType[], { TrainNo: string }>({
       // 取得指定列車號資訊
