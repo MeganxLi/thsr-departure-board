@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import AnalogClock from "../components/AnalogClock";
 import { api, useGetDesignatedStationQuery } from "../services/API";
-import { AppDispatch, RootState, useAppDispatch } from "../store";
+import { RootState, useAppDispatch } from "../store";
 import { selectStation, selectStationName } from "../store/baseSlice";
 import { getNowTime, getToday } from "../utils/dataprocessor";
 import DirectionStation from "./DirectionStation";
@@ -18,30 +18,19 @@ const DepartureBoard = () => {
   const { data } = useGetDesignatedStationQuery(selectStationVal, { skip: !token });
 
   useEffect(() => {
+    // load page get Token
     getAuthorization({}).unwrap();
   }, []);
 
-  const RefetchGetStationAPI = () => {};
-
   const getSelectTrain = (e: any) => {
-    dispatch(selectStation({ StationID: e.target.value, TrainDate: getToday }));
+    const ChangeSelectVal = { StationID: e.target.value, TrainDate: getToday };
+    dispatch(selectStation(ChangeSelectVal));
 
-    dispatch(
-      api.endpoints.getDesignatedStation.initiate(
-        { StationID: e.target.value, TrainDate: getToday },
-        { forceRefetch: true }
-      )
-    );
+    // like RTK refetch()
+    dispatch(api.endpoints.getDesignatedStation.initiate(ChangeSelectVal, { forceRefetch: true }));
 
-    if (stationList.length === 0) return;
-
-    const stationListIndex = stationList
-      .map((item: StationType) => {
-        return item.StationID;
-      })
-      .indexOf(selectStationVal.StationID);
-
-    dispatch(selectStationName(stationList[stationListIndex].StationName.Zh_tw));
+    // select Station Name
+    dispatch(selectStationName(stationList[e.target.selectedIndex].StationName.Zh_tw));
   };
 
   return (
