@@ -1,15 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { TrainInfoTitle } from "../constants/Messages";
-import { useGetTrainNoInfoQuery } from "../services/API";
-import { RootState } from "../store";
-import {
-  StyledStationRote,
-  StyleStationItem,
-  StyleStationRoteSpan,
-  StyleTrainInfoText,
-  StyleUl,
-} from "../styled/TrainTime";
+import { StyleTrainInfoText } from "../styled/TrainTime";
 import Stepper from "./Stepper";
 
 interface props {
@@ -18,7 +8,6 @@ interface props {
 }
 
 const TrainTime = ({ Direction, DirectionStationVal }: props) => {
-
   const TrainInfoText = (idx: number, title: string): string | number => {
     switch (idx) {
       case 0:
@@ -50,9 +39,7 @@ const TrainTime = ({ Direction, DirectionStationVal }: props) => {
           );
         })}
       </div>
-      {DirectionStationVal &&
-        <Stepper Direction={Direction} DirectionStationVal={DirectionStationVal} />
-      }
+      {DirectionStationVal && <Stepper Direction={Direction} DirectionStationVal={DirectionStationVal} />}
     </div>
   );
 };
