@@ -6,6 +6,15 @@ interface MapType {
   [key: string]: any;
 }
 
+interface baseStateType {
+  getToken: string;
+  getStationList: StationType[];
+  selectStation: selectStationType;
+  selectStationName: string;
+  getSouthDesignatedStation: DesignatedStationType[];
+  getNorthDesignatedStation: DesignatedStationType[];
+}
+
 interface ParameterType {
   grant_type: string;
   client_id: string;
