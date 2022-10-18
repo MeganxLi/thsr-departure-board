@@ -1,14 +1,18 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import qs from "qs";
+import { RootState } from "../store";
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "",
     prepareHeaders: (headers, api) => {
+      const token = (api.getState() as RootState).base.getToken;
+      if (token) headers.set("authorization", `Bearer ${token}`);
       headers.set("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
       return headers;
     },
   }),
+  tagTypes: ["Token", "Query", "Station"],
   endpoints: (builder) => ({
     // 獲取token
     getAuthorization: builder.mutation<TokenType, any>({
@@ -23,6 +27,7 @@ export const api = createApi({
           }),
         };
       },
+      invalidatesTags: ["Token"],
     }),
     getStation: builder.query<StationType[], any>({
       // 取得高鐵車站基本資料
@@ -32,6 +37,7 @@ export const api = createApi({
           method: "GET",
         };
       },
+      providesTags: ["Query"],
     }),
     getDesignatedStation: builder.query<DesignatedStationType[], selectStationType>({
       // 取得指定車站時刻表
@@ -42,6 +48,7 @@ export const api = createApi({
           params: { $select: "TrainDate,TrainNo,DepartureTime,EndingStationName", $format: "JSON" },
         };
       },
+      providesTags: ["Station"],
     }),
     getTrainNoInfo: builder.query<TrainNoInfoType[], { TrainNo: string }>({
       // 取得指定列車號資訊

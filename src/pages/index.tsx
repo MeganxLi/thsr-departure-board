@@ -1,33 +1,37 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import AnalogClock from "../components/AnalogClock";
-import { useGetDesignatedStationQuery } from "../services/API";
-import { RootState } from "../store";
+import { api, useGetDesignatedStationQuery } from "../services/API";
+import { RootState, useAppDispatch } from "../store";
 import { selectStation, selectStationName } from "../store/baseSlice";
 import { getNowTime, getToday } from "../utils/dataprocessor";
 import DirectionStation from "./DirectionStation";
 
 const DepartureBoard = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const stationList = useSelector((state: RootState) => state.base.getStationList);
   const selectStationVal = useSelector((state: RootState) => state.base.selectStation);
-  const { data } = useGetDesignatedStationQuery(selectStationVal);
 
-  const getSelectTrain = (e: any) => {
-    dispatch(selectStation({ StationID: e.target.value, TrainDate: getToday }));
-  };
+  const [getAuthorization] = api.useGetAuthorizationMutation();
+  const token = useSelector((state: RootState) => state.base.getToken);
+
+  const { data } = useGetDesignatedStationQuery(selectStationVal, { skip: !token });
 
   useEffect(() => {
-    if (stationList.length === 0) return;
+    // load page get Token
+    getAuthorization({}).unwrap();
+  }, []);
 
-    const stationListIndex = stationList
-      .map((item: StationType) => {
-        return item.StationID;
-      })
-      .indexOf(selectStationVal.StationID);
+  const getSelectTrain = (e: any) => {
+    const ChangeSelectVal = { StationID: e.target.value, TrainDate: getToday };
+    dispatch(selectStation(ChangeSelectVal));
 
-    dispatch(selectStationName(stationList[stationListIndex].StationName.Zh_tw));
-  }, [selectStationVal]);
+    // like RTK refetch()
+    dispatch(api.endpoints.getDesignatedStation.initiate(ChangeSelectVal, { forceRefetch: true }));
+
+    // select Station Name
+    dispatch(selectStationName(stationList[e.target.selectedIndex].StationName.Zh_tw));
+  };
 
   return (
     <>
