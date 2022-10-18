@@ -11,23 +11,19 @@ const DepartureBoard = () => {
   const dispatch = useDispatch();
   const stationList = useSelector((state: RootState) => state.base.getStationList);
   const selectStationVal = useSelector((state: RootState) => state.base.selectStation);
-  const { data } = useGetDesignatedStationQuery(selectStationVal);
+
   const [getAuthorization] = api.useGetAuthorizationMutation();
-  const onToggle = useCallback(() => {
-    getAuthorization({});
-  }, [getAuthorization])
+  const token = useSelector((state: RootState) => state.base.getToken);
+
+  const { data } = useGetDesignatedStationQuery(selectStationVal, { skip: !token });
+
+  useEffect(() => {
+    getAuthorization({}).unwrap();
+  }, []);
 
   const getSelectTrain = (e: any) => {
     dispatch(selectStation({ StationID: e.target.value, TrainDate: getToday }));
   };
-
-  useEffect(() => {
-    onToggle();
-  }, []);
-
-  useEffect(() => {
-    console.log("selectStationVal", selectStationVal)
-  }, [selectStationVal]);
 
   useEffect(() => {
     if (stationList.length === 0) return;
