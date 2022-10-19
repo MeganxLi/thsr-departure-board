@@ -7,7 +7,7 @@ interface MapType {
 }
 
 interface baseStateType {
-  getToken: string;
+  getToken: string | null;
   getStationList: StationType[];
   selectStation: selectStationType;
   selectStationName: string;

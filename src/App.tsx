@@ -1,18 +1,19 @@
-import { useEffect, useState } from "react";
-import { Counter } from "./features/counter/Counter";
 import "./styles/App.scss";
-import { useGetAuthorizationMutation, useGetStationQuery } from "./services/API";
+import { api, useGetAuthorizationQuery, useGetStationQuery } from "./services/API";
 import DepartureBoard from "./pages";
+import { useEffect } from "react";
+import { useAppDispatch } from "./store/hook";
 
 function App() {
-  const [getAuthorization, { isError, error }] = useGetAuthorizationMutation();
-  const { data } = useGetStationQuery({});
+  const dispatch = useAppDispatch();
+  const { data } = useGetAuthorizationQuery(); // load page get token
 
-  return (
-    <div className="App">
-      <DepartureBoard />
-    </div>
-  );
+  useEffect(() => {
+    // get station list
+    dispatch(api.endpoints.getStation.initiate());
+  }, [data]);
+
+  return <div className="App">{data ? <DepartureBoard /> : null}</div>;
 }
 
 export default App;

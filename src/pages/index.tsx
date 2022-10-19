@@ -1,17 +1,12 @@
 import { selectStationVal, selectStationName } from "../store/baseSlice";
 import { useAppDispatch, useAppSelector } from "../store/hook";
-import { api, useGetAuthorizationQuery, useGetDesignatedStationQuery, useGetStationQuery } from "../services/API";
+import { api, useGetDesignatedStationQuery } from "../services/API";
 import AnalogClock from "../components/AnalogClock";
 import DirectionStation from "./DirectionStation";
 import { getNowTime, getToday } from "../utils/dataprocessor";
 
 const DepartureBoard = () => {
   const dispatch = useAppDispatch();
-  //get token
-  const {} = useGetAuthorizationQuery();
-
-  // get station list
-  const {} = useGetStationQuery();
   const { getStationList } = useAppSelector((state) => state.base);
   const { selectStation } = useAppSelector((state) => state.base);
 
@@ -22,7 +17,7 @@ const DepartureBoard = () => {
   });
 
   const getSelectTrain = (e: any) => {
-    const ChangeSelectVal = { StationID: e.target.value, TrainDate: getToday };
+    const ChangeSelectVal = { StationID: e.target.value, TrainDate: getToday() };
     dispatch(selectStationVal(ChangeSelectVal));
 
     // like RTK refetch()
@@ -51,7 +46,7 @@ const DepartureBoard = () => {
           <AnalogClock />
           <div className="digital-clock">
             <p>現在時刻</p>
-            <p>{getNowTime}</p>
+            <p>{getNowTime()}</p>
           </div>
         </div>
 
