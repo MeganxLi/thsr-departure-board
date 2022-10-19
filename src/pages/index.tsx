@@ -15,7 +15,11 @@ const DepartureBoard = () => {
   const [getAuthorization] = api.useGetAuthorizationMutation();
   const token = useSelector((state: RootState) => state.base.getToken);
 
-  const { data } = useGetDesignatedStationQuery(selectStationVal, { skip: !token });
+  const { data, refetch } = useGetDesignatedStationQuery(selectStationVal, {
+    skip: !token,
+    pollingInterval: 60000, // 1 minute update data
+    refetchOnMountOrArgChange: true,
+  });
 
   useEffect(() => {
     // load page get Token
