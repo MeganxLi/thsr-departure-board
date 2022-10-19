@@ -1,7 +1,6 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import AnalogClock from "../components/AnalogClock";
-import { api, useGetDesignatedStationQuery } from "../services/API";
+import { api, useGetAuthorizationQuery, useGetDesignatedStationQuery, useGetStationQuery } from "../services/API";
 import { RootState, useAppDispatch } from "../store";
 import { selectStation, selectStationName } from "../store/baseSlice";
 import { getNowTime, getToday } from "../utils/dataprocessor";
@@ -9,22 +8,20 @@ import DirectionStation from "./DirectionStation";
 
 const DepartureBoard = () => {
   const dispatch = useAppDispatch();
+  //get token
+  const {} = useGetAuthorizationQuery();
+  const token = useSelector((state: RootState) => state.base.getToken);
+
+  // get station list
+  const {} = useGetStationQuery();
   const stationList = useSelector((state: RootState) => state.base.getStationList);
   const selectStationVal = useSelector((state: RootState) => state.base.selectStation);
 
-  const [getAuthorization] = api.useGetAuthorizationMutation();
-  const token = useSelector((state: RootState) => state.base.getToken);
-
+  // get station schedule
   const { data, refetch } = useGetDesignatedStationQuery(selectStationVal, {
-    skip: !token,
     pollingInterval: 60000, // 1 minute update data
     refetchOnMountOrArgChange: true,
   });
-
-  useEffect(() => {
-    // load page get Token
-    getAuthorization({}).unwrap();
-  }, []);
 
   const getSelectTrain = (e: any) => {
     const ChangeSelectVal = { StationID: e.target.value, TrainDate: getToday };

@@ -15,7 +15,7 @@ export const api = createApi({
   tagTypes: ["Token", "Query", "Station"],
   endpoints: (builder) => ({
     // 獲取token
-    getAuthorization: builder.mutation<TokenType, any>({
+    getAuthorization: builder.query<TokenType, void>({
       query: () => {
         return {
           url: "https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token",
@@ -27,9 +27,9 @@ export const api = createApi({
           }),
         };
       },
-      invalidatesTags: ["Token"],
+      providesTags: ["Token"],
     }),
-    getStation: builder.query<StationType[], any>({
+    getStation: builder.query<StationType[], void>({
       // 取得高鐵車站基本資料
       query: () => {
         return {
@@ -63,5 +63,5 @@ export const api = createApi({
   }),
 });
 
-export const { useGetAuthorizationMutation, useGetStationQuery, useGetDesignatedStationQuery, useGetTrainNoInfoQuery } =
+export const { useGetAuthorizationQuery, useGetStationQuery, useGetDesignatedStationQuery, useGetTrainNoInfoQuery } =
   api;
