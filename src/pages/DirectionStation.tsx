@@ -1,7 +1,6 @@
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../store/hook";
 import Marquee from "../components/Marquee";
 import TrainTime from "../components/TrainTime";
-import { RootState } from "../store";
 import { StyleDirectionPlatform } from "../styled/DirectionStation";
 
 interface props {
@@ -9,8 +8,8 @@ interface props {
 }
 
 const DirectionStation = ({ NorthDirection }: props) => {
-  const NorthStationVal = useSelector((state: RootState) => state.base.getNorthDesignatedStation);
-  const SouthStationVal = useSelector((state: RootState) => state.base.getSouthDesignatedStation);
+  const { getNorthDesignatedStation } = useAppSelector((state) => state.base);
+  const { getSouthDesignatedStation } = useAppSelector((state) => state.base);
 
   return (
     <div>
@@ -19,12 +18,12 @@ const DirectionStation = ({ NorthDirection }: props) => {
       </StyleDirectionPlatform>
       <TrainTime
         Direction={NorthDirection}
-        DirectionStationVal={NorthDirection ? NorthStationVal[0] : SouthStationVal[0]}
+        DirectionStationVal={NorthDirection ? getNorthDesignatedStation[0] : getSouthDesignatedStation[0]}
       />
       <Marquee />
       <TrainTime
         Direction={NorthDirection}
-        DirectionStationVal={NorthDirection ? NorthStationVal[1] : SouthStationVal[1]}
+        DirectionStationVal={NorthDirection ? getNorthDesignatedStation[1] : getSouthDesignatedStation[1]}
       />
     </div>
   );

@@ -1,42 +1,36 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import AnalogClock from "../components/AnalogClock";
+import { selectStationVal, selectStationName } from "../store/baseSlice";
+import { useAppDispatch, useAppSelector } from "../store/hook";
 import { api, useGetDesignatedStationQuery } from "../services/API";
-import { RootState, useAppDispatch } from "../store";
-import { selectStation, selectStationName } from "../store/baseSlice";
-import { getNowTime, getToday } from "../utils/dataprocessor";
+import AnalogClock from "../components/AnalogClock";
 import DirectionStation from "./DirectionStation";
+import { getNowTime, getToday } from "../utils/dataprocessor";
 
 const DepartureBoard = () => {
   const dispatch = useAppDispatch();
-  const stationList = useSelector((state: RootState) => state.base.getStationList);
-  const selectStationVal = useSelector((state: RootState) => state.base.selectStation);
+  const { getStationList } = useAppSelector((state) => state.base);
+  const { selectStation } = useAppSelector((state) => state.base);
 
-  const [getAuthorization] = api.useGetAuthorizationMutation();
-  const token = useSelector((state: RootState) => state.base.getToken);
-
-  const { data } = useGetDesignatedStationQuery(selectStationVal, { skip: !token });
-
-  useEffect(() => {
-    // load page get Token
-    getAuthorization({}).unwrap();
-  }, []);
+  // get station schedule
+  const { data, refetch } = useGetDesignatedStationQuery(selectStation, {
+    pollingInterval: 60000, // 1 minute update data
+    refetchOnMountOrArgChange: true,
+  });
 
   const getSelectTrain = (e: any) => {
-    const ChangeSelectVal = { StationID: e.target.value, TrainDate: getToday };
-    dispatch(selectStation(ChangeSelectVal));
+    const ChangeSelectVal = { StationID: e.target.value, TrainDate: getToday() };
+    dispatch(selectStationVal(ChangeSelectVal));
 
     // like RTK refetch()
     dispatch(api.endpoints.getDesignatedStation.initiate(ChangeSelectVal, { forceRefetch: true }));
 
     // select Station Name
-    dispatch(selectStationName(stationList[e.target.selectedIndex].StationName.Zh_tw));
+    dispatch(selectStationName(getStationList[e.target.selectedIndex].StationName.Zh_tw));
   };
 
   return (
     <>
-      <select value={selectStationVal.StationID} onChange={getSelectTrain}>
-        {stationList.map((TrainName: StationType, idx) => {
+      <select value={selectStation.StationID} onChange={getSelectTrain}>
+        {getStationList.map((TrainName: StationType, idx) => {
           return (
             <option key={idx} value={TrainName.StationID}>
               {TrainName.StationName.Zh_tw}
@@ -52,7 +46,7 @@ const DepartureBoard = () => {
           <AnalogClock />
           <div className="digital-clock">
             <p>現在時刻</p>
-            <p>{getNowTime}</p>
+            <p>{getNowTime()}</p>
           </div>
         </div>
 

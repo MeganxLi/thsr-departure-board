@@ -1,13 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useGetTrainNoInfoQuery } from '../services/API';
-import { RootState } from '../store';
-import {
-  StyledStationRote,
-  StyleStationItem,
-  StyleStationRoteSpan,
-  StyleUl,
-} from "../styled/TrainTime";
+import React, { useEffect, useState } from "react";
+import { useGetTrainNoInfoQuery } from "../services/API";
+import { useAppSelector } from "../store/hook";
+import { StyledStationRote, StyleStationItem, StyleStationRoteSpan, StyleUl } from "../styled/TrainTime";
 
 interface props {
   Direction: boolean;
@@ -15,14 +9,13 @@ interface props {
 }
 
 const Stepper = ({ Direction, DirectionStationVal }: props) => {
-  const selectStationNameVal = useSelector((state: RootState) => state.base.selectStationName);
-  const ApiStationList = useSelector((state: RootState) => state.base.getStationList);
+  const { selectStationName } = useAppSelector((state) => state.base);
+  const { getStationList } = useAppSelector((state) => state.base);
   const { data } = useGetTrainNoInfoQuery({
     TrainNo: DirectionStationVal !== undefined ? DirectionStationVal.TrainNo : "",
   });
   const [StopStation, setStopStation] = useState<string[]>([]);
-  const getStationsList = Direction ? [...ApiStationList].reverse() : ApiStationList; //北上車站清單要倒序
-
+  const getStationsList = Direction ? [...getStationList].reverse() : getStationList; //北上車站清單要倒序
 
   useEffect(() => {
     if (data) {
@@ -40,7 +33,7 @@ const Stepper = ({ Direction, DirectionStationVal }: props) => {
       {StopStation.length !== 0 &&
         getStationsList.map((TrainName: StationType, idx) => {
           const HaveStopStation = StopStation.indexOf(TrainName.StationName.Zh_tw) === -1;
-          const SelectStation = selectStationNameVal === TrainName.StationName.Zh_tw;
+          const SelectStation = selectStationName === TrainName.StationName.Zh_tw;
           return (
             <StyleStationItem
               key={idx}
@@ -51,10 +44,7 @@ const Stepper = ({ Direction, DirectionStationVal }: props) => {
             >
               <div className="station-name">{TrainName.StationName.Zh_tw}</div>
               <StyledStationRote className="station-route">
-                <StyleStationRoteSpan
-                  opacity={idx === 0 ? 0 : 1}
-                  className="station-route-left"
-                ></StyleStationRoteSpan>
+                <StyleStationRoteSpan opacity={idx === 0 ? 0 : 1} className="station-route-left"></StyleStationRoteSpan>
                 <StyleStationRoteSpan
                   opacity={idx === getStationsList.length - 1 ? 0 : 1}
                   className="station-route-right"
@@ -64,7 +54,7 @@ const Stepper = ({ Direction, DirectionStationVal }: props) => {
           );
         })}
     </StyleUl>
-  )
-}
+  );
+};
 
-export default Stepper
+export default Stepper;
