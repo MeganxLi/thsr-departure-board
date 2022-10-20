@@ -1,27 +1,27 @@
-import { TrainInfoTitle } from "../constants/Messages";
-import { StyleTrainInfoText } from "../styled/TrainTime";
-import Stepper from "./Stepper";
+import { TrainInfoTitle } from '../constants/Messages'
+import { StyleTrainInfoText } from '../styled/TrainTime'
+import Stepper from './Stepper'
 
 interface props {
-  Direction: boolean;
-  DirectionStationVal: DesignatedStationType;
+  Direction: boolean
+  DirectionStationVal: DesignatedStationType | null
 }
 
-const TrainTime = ({ Direction, DirectionStationVal }: props) => {
-  const TrainInfoText = (idx: number, title: string): string | number => {
+const TrainTime = ({ Direction, DirectionStationVal = null }: props) => {
+  const TrainInfoText = (idx: number, title: string, DirectionStation: DesignatedStationType): string | number => {
     switch (idx) {
       case 0:
-        return parseInt(DirectionStationVal.TrainNo);
+        return parseInt(DirectionStation.TrainNo)
       case 1:
-        return DirectionStationVal.EndingStationName.Zh_tw;
+        return DirectionStation.EndingStationName.Zh_tw
 
       case 3:
-        return "9-12車";
+        return '9-12車'
 
       default:
-        return (DirectionStationVal as MapType)[title];
+        return (DirectionStation as MapType)[title]
     }
-  };
+  }
 
   return (
     <div id="TrainTime">
@@ -30,18 +30,18 @@ const TrainTime = ({ Direction, DirectionStationVal }: props) => {
           return (
             <div key={idx}>
               <label>{TrainInfoTitle[title]}</label>
-              {DirectionStationVal && (
+              {(DirectionStationVal != null) && (
                 <StyleTrainInfoText $idx={idx} $direction={Direction}>
-                  {TrainInfoText(idx, title)}
+                  {TrainInfoText(idx, title, DirectionStationVal)}
                 </StyleTrainInfoText>
               )}
             </div>
-          );
+          )
         })}
       </div>
-      {DirectionStationVal && <Stepper Direction={Direction} DirectionStationVal={DirectionStationVal} />}
+      {(DirectionStationVal != null) && <Stepper Direction={Direction} DirectionStationVal={DirectionStationVal} />}
     </div>
-  );
-};
+  )
+}
 
-export default TrainTime;
+export default TrainTime

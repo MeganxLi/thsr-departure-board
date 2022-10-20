@@ -1,31 +1,31 @@
-import { selectStationVal, selectStationName } from "../store/baseSlice";
-import { useAppDispatch, useAppSelector } from "../store/hook";
-import { api, useGetDesignatedStationQuery } from "../services/API";
-import AnalogClock from "../components/AnalogClock";
-import DirectionStation from "./DirectionStation";
-import { getNowTime, getToday } from "../utils/dataprocessor";
+import { selectStationVal, selectStationName } from '../store/baseSlice'
+import { useAppDispatch, useAppSelector } from '../store/hook'
+import { api, useGetDesignatedStationQuery } from '../services/API'
+import AnalogClock from '../components/AnalogClock'
+import DirectionStation from './DirectionStation'
+import { getNowTime, getToday } from '../utils/dataprocessor'
 
 const DepartureBoard = () => {
-  const dispatch = useAppDispatch();
-  const { getStationList } = useAppSelector((state) => state.base);
-  const { selectStation } = useAppSelector((state) => state.base);
+  const dispatch = useAppDispatch()
+  const { getStationList } = useAppSelector((state) => state.base)
+  const { selectStation } = useAppSelector((state) => state.base)
 
   // get station schedule
   const { data, refetch } = useGetDesignatedStationQuery(selectStation, {
     pollingInterval: 60000, // 1 minute update data
-    refetchOnMountOrArgChange: true,
-  });
+    refetchOnMountOrArgChange: true
+  })
 
   const getSelectTrain = (e: any) => {
-    const ChangeSelectVal = { StationID: e.target.value, TrainDate: getToday() };
-    dispatch(selectStationVal(ChangeSelectVal));
+    const ChangeSelectVal = { StationID: e.target.value, TrainDate: getToday() }
+    dispatch(selectStationVal(ChangeSelectVal))
 
     // like RTK refetch()
-    dispatch(api.endpoints.getDesignatedStation.initiate(ChangeSelectVal, { forceRefetch: true }));
+    dispatch(api.endpoints.getDesignatedStation.initiate(ChangeSelectVal, { forceRefetch: true }))
 
     // select Station Name
-    dispatch(selectStationName(getStationList[e.target.selectedIndex].StationName.Zh_tw));
-  };
+    dispatch(selectStationName(getStationList[e.target.selectedIndex].StationName.Zh_tw))
+  }
 
   return (
     <>
@@ -35,7 +35,7 @@ const DepartureBoard = () => {
             <option key={idx} value={TrainName.StationID}>
               {TrainName.StationName.Zh_tw}
             </option>
-          );
+          )
         })}
       </select>
       <div className="departure-board">
@@ -53,7 +53,7 @@ const DepartureBoard = () => {
         <DirectionStation NorthDirection={true} />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default DepartureBoard;
+export default DepartureBoard
