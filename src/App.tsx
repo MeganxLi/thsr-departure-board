@@ -8,6 +8,7 @@ function App() {
   const dispatch = useAppDispatch();
   const { data } = useGetAuthorizationQuery(); // load page get token
 
+  useEffect(()=>{console.log(process.env.REACT_APP_CLIENT_ID,process.env.REACT_APP_CLIENT_SECRET)},[])
   useEffect(() => {
     // get station list
     dispatch(api.endpoints.getStation.initiate());
