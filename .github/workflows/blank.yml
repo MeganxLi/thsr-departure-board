@@ -23,9 +23,9 @@ jobs:
           REACT_APP_CLIENT_ID: ${{ secrets.REACT_APP_CLIENT_ID }}
           REACT_APP_CLIENT_SECRET: ${{ secrets.REACT_APP_CLIENT_SECRET }}
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.0.0
+      - name: Deploy to GitHub Pages
+        uses: jamesives/github-pages-deploy-action@v4
         with:
-          TOKEN: ${{ secrets.ACCESS_TOKEN  }} # GitHub Token 變數
-          BRANCH: gh-pages
-          FOLDER: build
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: public
