@@ -11,7 +11,8 @@ const DepartureBoard = () => {
   const { selectStation } = useAppSelector((state) => state.base)
 
   // get station schedule
-  const { data, refetch } = useGetDesignatedStationQuery(selectStation, {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { data } = useGetDesignatedStationQuery(selectStation, {
     pollingInterval: 60000, // 1 minute update data
     refetchOnMountOrArgChange: true
   })
