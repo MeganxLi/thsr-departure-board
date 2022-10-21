@@ -9,6 +9,10 @@ const App = () => {
   const { data } = useGetAuthorizationQuery() // load page get token
 
   useEffect(() => {
+    console.log('env-----', process.env.REACT_APP_CLIENT_ID, process.env.REACT_APP_CLIENT_SECRET)
+  }, [])
+
+  useEffect(() => {
     // get station list
     dispatch(api.endpoints.getStation.initiate())
   }, [data])
