@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import qs from 'qs'
-import { Key } from '../constants/ApiKey'
 import { RootState } from '../store'
 
 const TdxUrl: string = 'https://tdx.transportdata.tw'
@@ -25,9 +24,9 @@ export const api = createApi({
           url: `${TdxUrl}/auth/realms/TDXConnect/protocol/openid-connect/token`,
           method: 'POST',
           body: qs.stringify({
-            grant_type: Key.GrantType,
-            client_id: Key.ClientId,
-            client_secret: Key.ClientSecret
+            grant_type: process.env.REACT_APP_GRANT_TYPE,
+            client_id: process.env.REACT_APP_CLIENT_ID,
+            client_secret: process.env.REACT_APP_CLIENT_SECRET
           })
         }
       },
