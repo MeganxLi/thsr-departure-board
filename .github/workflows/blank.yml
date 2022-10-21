@@ -3,7 +3,9 @@ name: CI
 on:
   push:
     branches:
-      - main # 指定分支
+      # 指定分支
+      - main
+      - gh-pages
 
 jobs:
   build-and-deploy:
@@ -26,6 +28,6 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          token: ${{ secrets.ACCESS_TOKEN }} # GitHub Token 變數
+          repo-token: ${{ secrets.GITHUB_TOKEN  }} # GitHub Token 變數
           branch: gh-pages
           folder: public
