@@ -3,31 +3,28 @@ name: CI
 on:
   push:
     branches:
-      # 指定分支
-      - main
       - gh-pages
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v1
 
       - name: Build
         run: |
           npm install
           npm run-script build
         env:
-          # 獲得 GitHub env 變數
           REACT_APP_GRANT_TYPE: ${{ secrets.REACT_APP_GRANT_TYPE }}
           REACT_APP_CLIENT_ID: ${{ secrets.REACT_APP_CLIENT_ID }}
           REACT_APP_CLIENT_SECRET: ${{ secrets.REACT_APP_CLIENT_SECRET }}
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN  }} # GitHub Token 變數
-          branch: gh-pages
-          folder: public
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: build
