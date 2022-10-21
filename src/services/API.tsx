@@ -1,6 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import qs from 'qs'
+import { Key } from '../constants/ApiKey'
 import { RootState } from '../store'
+
+const TdxUrl: string = 'https://tdx.transportdata.tw'
+const TdxTHSR: string = '/api/basic/v2/Rail/THSR'
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
@@ -18,12 +22,12 @@ export const api = createApi({
     getAuthorization: builder.query<TokenType, void>({
       query: () => {
         return {
-          url: 'https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token',
+          url: `${TdxUrl}/auth/realms/TDXConnect/protocol/openid-connect/token`,
           method: 'POST',
           body: qs.stringify({
-            grant_type: 'client_credentials',
-            client_id: process.env.REACT_APP_CLIENT_ID,
-            client_secret: process.env.REACT_APP_CLIENT_SECRET
+            grant_type: Key.GrantType,
+            client_id: Key.ClientId,
+            client_secret: Key.ClientSecret
           })
         }
       },
@@ -33,7 +37,7 @@ export const api = createApi({
       // 取得高鐵車站基本資料
       query: () => {
         return {
-          url: 'https://tdx.transportdata.tw/api/basic/v2/Rail/THSR/Station',
+          url: `${TdxUrl}${TdxTHSR}/Station`,
           method: 'GET'
         }
       },
@@ -43,7 +47,7 @@ export const api = createApi({
       // 取得指定車站時刻表
       query: ({ StationID, TrainDate }) => {
         return {
-          url: `https://tdx.transportdata.tw/api/basic/v2/Rail/THSR/DailyTimetable/Station/${StationID}/${TrainDate}`,
+          url: `${TdxUrl}${TdxTHSR}/DailyTimetable/Station/${StationID}/${TrainDate}`,
           method: 'GET',
           params: { $select: 'TrainDate,TrainNo,DepartureTime,EndingStationName', $format: 'JSON' }
         }
@@ -54,7 +58,7 @@ export const api = createApi({
       // 取得指定列車號資訊
       query: ({ TrainNo }) => {
         return {
-          url: `https://tdx.transportdata.tw/api/basic/v2/Rail/THSR/DailyTimetable/Today/TrainNo/${TrainNo}`,
+          url: `${TdxUrl}${TdxTHSR}/DailyTimetable/Today/TrainNo/${TrainNo}`,
           method: 'GET',
           params: { $format: 'JSON' }
         }
