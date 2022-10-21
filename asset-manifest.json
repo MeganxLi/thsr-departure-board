@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/thsr-departure-board/static/css/main.9e22ce6f.css",
+    "main.js": "/thsr-departure-board/static/js/main.e4a53f64.js",
+    "index.html": "/thsr-departure-board/index.html",
+    "main.9e22ce6f.css.map": "/thsr-departure-board/static/css/main.9e22ce6f.css.map",
+    "main.e4a53f64.js.map": "/thsr-departure-board/static/js/main.e4a53f64.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9e22ce6f.css",
+    "static/js/main.e4a53f64.js"
+  ]
+}
