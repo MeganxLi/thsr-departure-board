@@ -1,7 +1,7 @@
-import { useAppSelector } from '../store/hook'
-import Marquee from '../components/Marquee'
-import TrainTime from '../components/TrainTime'
-import { StyleDirectionPlatform } from '../styled/DirectionStation'
+import { useAppSelector } from '../../store/hook'
+import Marquee from '../../components/Marquee'
+import TrainTime from '../../components/TrainTime'
+import { StyleDirectionPlatform } from '../../styled/DirectionStation'
 
 interface props {
   NorthDirection: boolean

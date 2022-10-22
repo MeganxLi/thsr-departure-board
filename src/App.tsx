@@ -1,8 +1,9 @@
 import './styles/App.scss'
 import { api, useGetAuthorizationQuery } from './services/API'
-import DepartureBoard from './pages'
 import { useEffect } from 'react'
 import { useAppDispatch } from './store/hook'
+import { Routes, Route } from 'react-router-dom'
+import routes from './route/router'
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -13,7 +14,19 @@ const App = () => {
     dispatch(api.endpoints.getStation.initiate())
   }, [data])
 
-  return <div className="App">{(data != null) ? <DepartureBoard /> : null}</div>
+  return (<div className="App">
+    {(data != null)
+      ? (<Routes>
+        {routes.map((router, i) => (
+          <Route
+            key={i}
+            path={router.path}
+            element={router.element}
+          />))}
+      </Routes>)
+      : null}
+
+  </div>)
 }
 
 export default App

@@ -1,11 +1,11 @@
-import { selectStationVal, selectStationName } from '../store/baseSlice'
-import { useAppDispatch, useAppSelector } from '../store/hook'
-import { api, useGetDesignatedStationQuery } from '../services/API'
-import AnalogClock from '../components/AnalogClock'
+import { selectStationVal, selectStationName } from '../../store/baseSlice'
+import { useAppDispatch, useAppSelector } from '../../store/hook'
+import { api, useGetDesignatedStationQuery } from '../../services/API'
+import AnalogClock from '../../components/AnalogClock'
 import DirectionStation from './DirectionStation'
-import { getNowTime, getToday } from '../utils/dataprocessor'
+import { getNowTime, getToday } from '../../utils/dataprocessor'
 
-const DepartureBoard = () => {
+const OldDepartureBoard = () => {
   const dispatch = useAppDispatch()
   const { getStationList } = useAppSelector((state) => state.base)
   const { selectStation } = useAppSelector((state) => state.base)
@@ -57,4 +57,4 @@ const DepartureBoard = () => {
   )
 }
 
-export default DepartureBoard
+export default OldDepartureBoard
