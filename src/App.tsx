@@ -4,6 +4,8 @@ import { useEffect } from 'react'
 import { useAppDispatch } from './store/hook'
 import { Routes, Route } from 'react-router-dom'
 import routes from './route/router'
+import SelectStation from './components/SelectStation'
+import Nav from './components/Nav'
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -15,6 +17,8 @@ const App = () => {
   }, [data])
 
   return (<div className="App">
+    <Nav />
+    <SelectStation />
     {(data != null)
       ? (<Routes>
         {routes.map((router, i) => (
