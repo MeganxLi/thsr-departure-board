@@ -1,13 +1,10 @@
-import { selectStationVal, selectStationName } from '../../store/baseSlice'
-import { useAppDispatch, useAppSelector } from '../../store/hook'
-import { api, useGetDesignatedStationQuery } from '../../services/API'
+import { useAppSelector } from '../../store/hook'
+import { useGetDesignatedStationQuery } from '../../services/API'
 import AnalogClock from '../../components/AnalogClock'
 import DirectionStation from './DirectionStation'
-import { getNowTime, getToday } from '../../utils/dataprocessor'
+import { getNowTime } from '../../utils/dataprocessor'
 
 const OldDepartureBoard = () => {
-  const dispatch = useAppDispatch()
-  const { getStationList } = useAppSelector((state) => state.base)
   const { selectStation } = useAppSelector((state) => state.base)
 
   // get station schedule
@@ -17,43 +14,22 @@ const OldDepartureBoard = () => {
     refetchOnMountOrArgChange: true
   })
 
-  const getSelectTrain = (e: any) => {
-    const ChangeSelectVal = { StationID: e.target.value, TrainDate: getToday() }
-    dispatch(selectStationVal(ChangeSelectVal))
-
-    // like RTK refetch()
-    dispatch(api.endpoints.getDesignatedStation.initiate(ChangeSelectVal, { forceRefetch: true }))
-
-    // select Station Name
-    dispatch(selectStationName(getStationList[e.target.selectedIndex].StationName.Zh_tw))
-  }
-
   return (
-    <>
-      <select value={selectStation.StationID} onChange={getSelectTrain}>
-        {getStationList.map((TrainName: StationType, idx) => {
-          return (
-            <option key={idx} value={TrainName.StationID}>
-              {TrainName.StationName.Zh_tw}
-            </option>
-          )
-        })}
-      </select>
-      <div className="departure-board">
-        {/* NorthDirection 行車方向, true: 北, false: 南 */}
-        <DirectionStation NorthDirection={false} />
 
-        <div className="now-time">
-          <AnalogClock />
-          <div className="digital-clock">
-            <p>現在時刻</p>
-            <p>{getNowTime()}</p>
-          </div>
+    <div className="departure-board">
+      {/* NorthDirection 行車方向, true: 北, false: 南 */}
+      <DirectionStation NorthDirection={false} />
+
+      <div className="now-time">
+        <AnalogClock />
+        <div className="digital-clock">
+          <p>現在時刻</p>
+          <p>{getNowTime()}</p>
         </div>
-
-        <DirectionStation NorthDirection={true} />
       </div>
-    </>
+
+      <DirectionStation NorthDirection={true} />
+    </div>
   )
 }
 
