@@ -117,6 +117,7 @@ interface TrainNoInfoType {
 }
 
 interface PageListType {
+  name: string
   path: string
   element: JSX.Element
 }
