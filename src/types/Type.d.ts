@@ -13,6 +13,8 @@ interface baseStateType {
   selectStationName: string
   getSouthDesignatedStation: DesignatedStationType[]
   getNorthDesignatedStation: DesignatedStationType[]
+  getNewSouthDesignatedStation: DesignatedStationType[]
+  getNewNorthDesignatedStation: DesignatedStationType[]
 }
 
 interface ParameterType {

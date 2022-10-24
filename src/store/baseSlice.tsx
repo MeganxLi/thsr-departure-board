@@ -11,7 +11,9 @@ const initialState: baseStateType = {
   },
   selectStationName: '南港',
   getSouthDesignatedStation: [],
-  getNorthDesignatedStation: []
+  getNorthDesignatedStation: [],
+  getNewSouthDesignatedStation: [],
+  getNewNorthDesignatedStation: []
 }
 
 export const baseSlice = createSlice({
@@ -40,8 +42,13 @@ export const baseSlice = createSlice({
         )
       }
 
-      state.getSouthDesignatedStation = DepartureTimeStation(0) // 南下
-      state.getNorthDesignatedStation = DepartureTimeStation(1) // 北上
+      // old
+      state.getSouthDesignatedStation = DepartureTimeStation(0).slice(0, 2) // 南下
+      state.getNorthDesignatedStation = DepartureTimeStation(1).slice(0, 2) // 北上
+
+      // new
+      state.getNewSouthDesignatedStation = DepartureTimeStation(0).slice(0, 5) // 南下
+      state.getNewNorthDesignatedStation = DepartureTimeStation(1).slice(0, 5) // 北上
     })
   }
 })
