@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useGetTrainNoInfoQuery } from '../services/API'
-import { useAppSelector } from '../store/hook'
-import { StyledStationRote, StyleStationItem, StyleStationRoteSpan, StyleUl } from '../styled/TrainTime'
+import { useGetTrainNoInfoQuery } from '../../services/API'
+import { useAppSelector } from '../../store/hook'
+import { StyledStationRote, StyleStationItem, StyleStationRoteSpan, StyleUl } from '../../styled/TrainTime'
 
 interface props {
   Direction: boolean

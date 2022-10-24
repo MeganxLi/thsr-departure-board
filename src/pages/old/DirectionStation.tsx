@@ -1,6 +1,6 @@
 import { useAppSelector } from '../../store/hook'
-import Marquee from '../../components/Marquee'
-import TrainTime from '../../components/TrainTime'
+import Marquee from '../../components/old/Marquee'
+import TrainTime from '../../components/old/TrainTime'
 import { StyleDirectionPlatform } from '../../styled/DirectionStation'
 
 interface props {
