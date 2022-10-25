@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useGetTrainNoInfoQuery } from '../../services/API'
 import { useAppSelector } from '../../store/hook'
 import { StyledStationRote, StyleStationItem, StyleStationRoteSpan, StyleUl } from '../../styled/TrainTime'
+import { handleStopStationArray } from '../../utils/dataprocessor'
 
 interface props {
   Direction: boolean
@@ -19,12 +20,7 @@ const Stepper = ({ Direction, DirectionStationVal }: props) => {
 
   useEffect(() => {
     if (data != null) {
-      let newDataStopStation: string[] = []
-      data[0].StopTimes.map((item: StopTimesType) => {
-        return (newDataStopStation = [...newDataStopStation, item.StationName.Zh_tw])
-      })
-
-      setStopStation(newDataStopStation)
+      setStopStation(handleStopStationArray(data[0].StopTimes))
     }
   }, [data])
 

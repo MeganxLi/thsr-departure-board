@@ -6,3 +6,13 @@ export const getNowTime = () =>
     hour: '2-digit',
     minute: '2-digit'
   }) // 取得現在時間 hh:mm
+
+export const handleStopStationArray = (StopTimes: StopTimesType[]): string[] => {
+  let newDataStopStation: string[] = []
+
+  StopTimes.map((item: StopTimesType) => {
+    return (newDataStopStation = [...newDataStopStation, item.StationName.Zh_tw])
+  })
+
+  return newDataStopStation
+}
