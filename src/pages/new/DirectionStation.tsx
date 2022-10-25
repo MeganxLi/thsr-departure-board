@@ -1,6 +1,7 @@
 import React from 'react'
 import { TrainInfoTitle } from '../../constants/Messages'
 import { useAppSelector } from '../../store/hook'
+import Stepper from './Stepper'
 
 interface props {
   Direction: boolean
@@ -30,7 +31,7 @@ const DirectionStation = ({ Direction }: props) => {
             <span>{station.EndingStationName.Zh_tw}</span>
             <span>{station.DepartureTime}</span>
             <span>9-10</span>
-            <div className='new-stepper'>123</div>
+            <Stepper TrainNo={station.TrainNo} />
           </div>
         )
       })}
