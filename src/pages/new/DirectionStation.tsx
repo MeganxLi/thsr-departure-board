@@ -14,11 +14,11 @@ const DirectionStation = ({ Direction }: props) => {
 
   return (
     <div id="New_DirectionStation">
-      <div className='new-station-title'>
+      <div className='new-station new-station-title'>
         {Object.values(TrainInfoTitle).map((title: string, idx: number) =>
           <span key={idx}> {title}</span>
         )}
-        <div className='new-stepper new-stepper-title'>
+        <div className='new-stop-station-title'>
           {getStationsList.map((list: StationType, idx: number) =>
             <span key={idx}>{list.StationName.Zh_tw}</span>
           )}
@@ -26,7 +26,7 @@ const DirectionStation = ({ Direction }: props) => {
       </div>
       {(Direction ? getNewNorthDesignatedStation : getNewSouthDesignatedStation).map((station: DesignatedStationType, idx: number) => {
         return (
-          <div key={idx}>
+          <div key={idx} className='new-station'>
             <span>{station.TrainNo}</span>
             <span>{station.EndingStationName.Zh_tw}</span>
             <span>{station.DepartureTime}</span>

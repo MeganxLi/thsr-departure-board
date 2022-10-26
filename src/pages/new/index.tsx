@@ -4,7 +4,7 @@ import DirectionStation from './DirectionStation'
 
 const NewDepartureBoard = () => {
   return (
-    <div id="NewDepartureBoard">
+    <div id="New_DepartureBoard">
       <p>
         <span>南下 Southbound</span>
         <span>Northbound 北上</span>

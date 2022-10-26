@@ -1,0 +1,35 @@
+#New_DepartureBoard {
+  display: grid;
+  grid-template-areas:
+    "Title Title Title"
+    "South Time North";
+  grid-template-columns: 1fr 180px 1fr;
+
+  > p {
+    grid-area: Title;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+  }
+
+  > div:first-child {
+    grid-area: South;
+  }
+
+  > .now-time {
+    grid-area: Time;
+    width: 100%;
+  }
+
+  > div:last-child {
+    grid-area: North;
+  }
+
+  #New_DirectionStation {
+    .new-station {
+      display: flex;
+      gap: 1rem;
+      grid-template-columns: repeat(3, 200px);
+    }
+  }
+}
