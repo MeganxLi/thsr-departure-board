@@ -1,1 +1,4 @@
-export const StationArrayLength: number = 5
+export enum StationArrayLength {
+  new = 5,
+  old = 2,
+}

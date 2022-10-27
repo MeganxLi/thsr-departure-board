@@ -44,12 +44,12 @@ export const baseSlice = createSlice({
       }
 
       // old
-      state.getSouthDesignatedStation = DepartureTimeStation(0).slice(0, 2) // 南下
-      state.getNorthDesignatedStation = DepartureTimeStation(1).slice(0, 2) // 北上
+      state.getSouthDesignatedStation = DepartureTimeStation(0).slice(0, StationArrayLength.old) // 南下
+      state.getNorthDesignatedStation = DepartureTimeStation(1).slice(0, StationArrayLength.old) // 北上
 
       // new
-      state.getNewSouthDesignatedStation = DepartureTimeStation(0).slice(0, StationArrayLength) // 南下
-      state.getNewNorthDesignatedStation = DepartureTimeStation(1).slice(0, StationArrayLength) // 北上
+      state.getNewSouthDesignatedStation = DepartureTimeStation(0).slice(0, StationArrayLength.new) // 南下
+      state.getNewNorthDesignatedStation = DepartureTimeStation(1).slice(0, StationArrayLength.new) // 北上
     })
   }
 })

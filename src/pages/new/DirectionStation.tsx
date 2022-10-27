@@ -49,7 +49,7 @@ const DirectionStation = ({ Direction }: props) => {
         )
       })}
       { // 補齊剩餘陣列
-        Array(StationArrayLength - (Direction ? getNewNorthDesignatedStation.length : getNewSouthDesignatedStation.length))
+        Array(StationArrayLength.new - (Direction ? getNewNorthDesignatedStation.length : getNewSouthDesignatedStation.length))
           .fill('')
           .map((item: any, idx: number) =>
             <StyledNewTrainTime
