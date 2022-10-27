@@ -4,12 +4,23 @@
     "Title Title Title"
     "South Time North";
   grid-template-columns: 1fr 180px 1fr;
+  gap: 2rem;
 
   > p {
     grid-area: Title;
     display: flex;
     justify-content: space-between;
     font-size: 1.2rem;
+
+    span {
+      &:first-child {
+        color: $green-color;
+      }
+
+      &:last-child {
+        color: $blur-color;
+      }
+    }
   }
 
   > div:first-child {
@@ -18,7 +29,6 @@
 
   > .now-time {
     grid-area: Time;
-    width: 100%;
   }
 
   > div:last-child {
@@ -26,10 +36,38 @@
   }
 
   #New_DirectionStation {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+
     .new-station {
+      display: grid;
+      gap: 0.5rem;
+      grid-template-columns: repeat(4, 70px) auto;
+      flex: 1;
+      padding: 0 0.8rem;
+
+      > span {
+        display: flex;
+        align-items: flex-end;
+      }
+    }
+
+    .new-station-title > .new-stop-station > span {
+      writing-mode: vertical-lr;
+      font-size: 14px;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .new-stop-station {
       display: flex;
-      gap: 1rem;
-      grid-template-columns: repeat(3, 200px);
+
+      > span {
+        flex: 1;
+        display: flex;
+      }
     }
   }
 }

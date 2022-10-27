@@ -1,0 +1,24 @@
+.now-time {
+  width: 100%;
+  margin-top: 2.5rem;
+
+  .digital-clock {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-top: 3rem;
+
+    p {
+      text-align: center;
+      font-weight: bold;
+
+      &:first-child {
+        font-size: 1rem;
+      }
+
+      &:nth-child(2) {
+        font-size: 2.5rem;
+      }
+    }
+  }
+}
