@@ -31,7 +31,6 @@ const DirectionStation = ({ Direction }: props) => {
 
         // 即將到時間接近2分鐘才變色
         comingSoonTime = (parseInt(getNowTime().replace(':', '')) - parseInt(station.DepartureTime.replace(':', '')) >= -2)
-        console.log(parseInt(getNowTime().replace(':', '')) - parseInt(station.DepartureTime.replace(':', '')), comingSoonTime)
 
         return (
           <StyledNewTrainTime
