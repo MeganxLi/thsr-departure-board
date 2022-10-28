@@ -1,5 +1,4 @@
-import AnalogClock from '../../components/AnalogClock'
-import { getNowTime } from '../../utils/dataprocessor'
+import NewTime from '../../components/NowTime'
 import DirectionStation from './DirectionStation'
 
 const NewDepartureBoard = () => {
@@ -10,15 +9,7 @@ const NewDepartureBoard = () => {
         <span>Northbound 北上</span>
       </p>
       <DirectionStation Direction={false} />
-
-      <div className="now-time">
-        <AnalogClock />
-        <div className="digital-clock">
-          <p>現在時刻</p>
-          <p>{getNowTime()}</p>
-        </div>
-      </div>
-
+      <NewTime />
       <DirectionStation Direction={true} />
     </div>
   )
