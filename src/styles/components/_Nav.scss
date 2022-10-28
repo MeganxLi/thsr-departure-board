@@ -1,0 +1,15 @@
+nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+
+  li {
+    a {
+      color: $text-color;
+    }
+
+    &.nav-action {
+      border-bottom: 1px solid $text-color;
+    }
+  }
+}

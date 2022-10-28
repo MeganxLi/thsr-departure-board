@@ -10,6 +10,9 @@
 // components
 @import "components/TrainTime";
 @import "components/Marquee";
+@import "components/Nav";
+@import "components/NewDate";
 
 // pages
-@import "pages/DepartureBoard";
+@import "pages/OldDepartureBoard";
+@import "pages/NewDepartureBoard";

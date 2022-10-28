@@ -1,0 +1,15 @@
+.departure-board {
+  display: grid;
+  grid-template-columns: 1fr 180px 1fr;
+  gap: 2rem;
+  margin-top: 2.5rem;
+
+  > div {
+    display: grid;
+    gap: 0.5rem;
+
+    &:not(.now-time) {
+      grid-template-rows: auto 1fr 50px 1fr;
+    }
+  }
+}

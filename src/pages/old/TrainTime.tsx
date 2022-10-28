@@ -1,5 +1,5 @@
-import { TrainInfoTitle } from '../constants/Messages'
-import { StyleTrainInfoText } from '../styled/TrainTime'
+import { TrainInfoTitle } from '../../constants/Messages'
+import { StyleTrainInfoText } from '../../styled/TrainTime'
 import Stepper from './Stepper'
 
 interface props {

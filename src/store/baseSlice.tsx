@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { StationArrayLength } from '../constants/NormType'
 import { api } from '../services/API'
 import { getNowTime, getToday } from '../utils/dataprocessor'
 
@@ -11,7 +12,9 @@ const initialState: baseStateType = {
   },
   selectStationName: '南港',
   getSouthDesignatedStation: [],
-  getNorthDesignatedStation: []
+  getNorthDesignatedStation: [],
+  getNewSouthDesignatedStation: [],
+  getNewNorthDesignatedStation: []
 }
 
 export const baseSlice = createSlice({
@@ -40,8 +43,13 @@ export const baseSlice = createSlice({
         )
       }
 
-      state.getSouthDesignatedStation = DepartureTimeStation(0) // 南下
-      state.getNorthDesignatedStation = DepartureTimeStation(1) // 北上
+      // old
+      state.getSouthDesignatedStation = DepartureTimeStation(0).slice(0, StationArrayLength.old) // 南下
+      state.getNorthDesignatedStation = DepartureTimeStation(1).slice(0, StationArrayLength.old) // 北上
+
+      // new
+      state.getNewSouthDesignatedStation = DepartureTimeStation(0).slice(0, StationArrayLength.new) // 南下
+      state.getNewNorthDesignatedStation = DepartureTimeStation(1).slice(0, StationArrayLength.new) // 北上
     })
   }
 })
