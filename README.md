@@ -2,7 +2,7 @@
 
 仿台灣高鐵站的電子列車時刻表
 
-## UI
+## Website Display
 ![電子列車時刻表](https://user-images.githubusercontent.com/87239200/198482331-1a2caf8c-a3e6-4066-a4e3-6a977cb10371.png)
 
 
