@@ -6,8 +6,8 @@ const NewTime = () => {
   const [Time, setTime] = useState(getNowTime())
 
   useEffect(() => {
-    // 每半分鐘更新時間
-    const interval = setInterval(() => setTime(getNowTime()), 30000)
+    // 每分鐘更新時間
+    const interval = setInterval(() => setTime(getNowTime()))
 
     return () => {
       clearInterval(interval)
