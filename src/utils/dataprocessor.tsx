@@ -1,4 +1,8 @@
-export const getToday = () => new Date().toLocaleDateString('zh-TW').replace(/\//g, '-') // 取得今天日期轉 yyyy-mm-dd
+export const getToday = () => new Date().toLocaleDateString('zh-TW', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit'
+}).replace(/\//g, '-') // 取得今天日期轉 yyyy-mm-dd
 
 export const getNowTime = () =>
   new Date().toLocaleString('zh-TW', {
